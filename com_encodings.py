@@ -7,8 +7,20 @@ import imghdr
 from multiprocessing import Pool
 import subprocess
 import configparser
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
 
 CONFIG_FILE_PATH = "Config_Encodings.ini"
+
+
+class MyHandler(FileSystemEventHandler):
+    def __init__(self, root, directory_label):
+        self.root = root
+        self.directory_label = directory_label
+
+    def on_any_event(self, event):
+        if event.event_type == 'created' and not event.is_directory:
+            update_info_label(self.directory_label.cget("text"))
 
 
 def save_config(directory):
@@ -197,5 +209,9 @@ instructions_label.pack(side="bottom", pady=10)
 
 # Call update_info_label to update the info label when the application starts
 update_info_label(load_config())
+
+observer = Observer()
+observer.schedule(MyHandler(root, directory_label), path=load_config() if load_config() else '.')
+observer.start()
 
 root.mainloop()

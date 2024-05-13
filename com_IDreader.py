@@ -1,4 +1,5 @@
 import os 
+import cv2
 import configparser
 import mysql.connector
 import csv
@@ -6,6 +7,8 @@ import subprocess
 import tkinter as tk
 import webbrowser
 import customtkinter as ctk
+import face_recognition
+import pickle
 from tkinter import messagebox, filedialog
 from tkinter import ttk
 from tkinter import simpledialog
@@ -203,9 +206,8 @@ def read_card_data_and_display_photo():
         gender_label = GENDER_MAPPING.get(gender_value, "Unknown")
         gender_var.set(gender_label)
 
-        # Save photo to file with full name without prefix "Mr." and without underscores
-        full_name = enn_var.get().replace("Mr. ", "")  # Remove "Mr." and underscores
-
+        cid = cid_var.get()
+        full_name = enn_var.get().replace("Mr. ", "")
         # Photo retrieval
         photo_data = b''  
         for apdu in APDU_PHOTO:
@@ -213,8 +215,8 @@ def read_card_data_and_display_photo():
             photo_data += bytearray(data[0])
 
         # Save photo to file
-        with open(os.path.join(selected_directory, f"{full_name}.jpg"), "wb") as f:
-            f.write(photo_data)
+        # with open(os.path.join(selected_directory, f"{cid}_{full_name}.jpg"), "wb") as f:
+        #     f.write(photo_data)
 
         # Display photo
         image = Image.open(BytesIO(photo_data))
@@ -362,7 +364,7 @@ def update_sheet(data):
 
 def open_another_program():
     try:
-        subprocess.Popen(["/usr/bin/python3", "/home/auto/Desktop/FullApp/com_encodings.py"])
+        subprocess.Popen(["/usr/bin/python3", "/home/auto/Desktop/FullApp/SHIN FULL APP/com_encodings.py"])
     except Exception as e:
         messagebox.showerror("Error", f"An error occurred: {e}")
 
@@ -537,6 +539,61 @@ open_website_button = CTkButton(tabs, text="Open Report Website", command=open_w
 open_website_button.grid(row=10, column=2, padx=10, pady=10)
 
 
+def open_camera():
+    if not cid_var.get():
+        messagebox.showerror("Error", "Please read the card first")
+        return
+
+    cap = cv2.VideoCapture(0)
+
+    while True:
+        ret, frame = cap.read()
+        cv2.imshow('Camera', frame)
+
+        if cv2.waitKey(1) & 0xFF == ord('c'):
+            cid = cid_var.get()[:13]
+            full_name = enn_var.get().replace("Mr. ", "")
+            file_name = f"{cid}_{full_name}.jpg"  # Include CID in the file name
+            image_path = os.path.join(selected_directory, file_name)
+
+            cv2.imwrite(image_path, frame)
+
+            print(f"Image captured and saved as {file_name}")
+
+            try:
+                image = face_recognition.load_image_file(image_path)
+                encoding = face_recognition.face_encodings(image)[0]
+
+                known_face_encodings = []
+                known_face_names = []
+
+                if os.path.exists("face_encodings.pickle"):
+                    with open("face_encodings.pickle", "rb") as f:
+                        known_face_encodings, known_face_names = pickle.load(f)
+
+                known_face_encodings.append(encoding)
+                known_face_names.append(file_name[:-4]) 
+
+                with open("face_encodings.pickle", "wb") as f:
+                    pickle.dump((known_face_encodings, known_face_names), f)
+
+                print(f"Face encoding saved for {file_name[:-4]}")
+            except Exception as e:
+                print(f"Error encoding face: {e}")
+
+            messagebox.showinfo("Image Captured", f"Image captured and saved as {file_name}")
+            break
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+
+camera_button = CTkButton(tabs, text="Open Camera", command=open_camera, font=("Helvetica", 20))
+camera_button.grid(row=11, column=2, padx=10, pady=10)
+
+
 # instructions_label = CTkLabel(root, text="HOW TO USE:\n\n1. Click 'Setting' to select where to save images.\n2. Click 'Read Card' to read the card data.\n3. Click 'Open FaceRec' to enter Face Recognition step.", font=("Helvetica", 20))
 # instructions_label.pack(side="bottom", pady=10) 
 
@@ -588,5 +645,6 @@ def open_information_window():
 
 open_info_button = ctk.CTkButton(root, text="Open Sheet", command=open_information_window, font=("Helvetica", 20))
 open_info_button.pack(padx=10, pady=10)
+
 
 root.mainloop()
