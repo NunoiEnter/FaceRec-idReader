@@ -1,0 +1,212 @@
+/* Resetting default margin, padding, and box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+/* Container styles */
+.container {
+    width: fit-content ; /* Adjusted max-width for better readability */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+}
+
+/* Heading styles */
+h1, h2, h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333333; /* Darkened text color for better readability */
+}
+
+/* Content styles */
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Increased margin for better separation */
+}
+
+/* Chart container styles */
+.chart-container {
+    flex: 0 0 48%; /* Adjusted width for better responsiveness */
+    margin-bottom: 20px;
+    background-color: #f9f9f9; /* Lighter background color */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+    overflow: hidden; /* Hide overflowing content */
+}
+
+/* Navigation styles */
+.nav {
+    background-color: #333;
+    overflow: hidden;
+    border-radius: 5px; /* Rounded corners */
+}
+
+.nav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+.nav a:hover {
+    background-color: #555; /* Darker hover color */
+}
+
+.nav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Dropdown button styles */
+.dropdown {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.dropdown select {
+    appearance: none;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #495057;
+    cursor: pointer;
+    width: 150px; /* Adjust width as needed */
+    outline: none;
+}
+
+.dropdown select:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.dropdown::after {
+    content: "\25BC"; /* Unicode character for down arrow */
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* Hover state for dropdown button */
+.dropdown:hover select {
+    border-color: #80bdff;
+}
+
+.dropdown:hover::after {
+    color: #007bff;
+}
+
+/* Disabled state for dropdown button */
+.dropdown select[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #000;
+    color: #fff;
+}
+
+/* Hover effect */
+tr:hover {
+    background-color: #ddd;
+}
+
+.graph-info {
+    margin-top: 20px; /* Adjusted margin for better spacing */
+    text-align: center;
+    color: #666; /* Adjusted text color for better readability */
+}
+
+.agegap {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.agegap h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.agegap h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.age-info p {
+    font-size: 18px;
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.age-info .age-range {
+    font-weight: bold;
+    color: #333;
+}
+
+.age-info .count {
+    color: #007bff; /* You can adjust the color */
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+}
+#timeChart {
+    width: 100%; /* Make the chart canvas full width */
+    height: auto; /* Adjust height automatically */
+}
+#timeChart2 {
+    width: 100%; /* Make the chart canvas full width */
+    height: auto; /* Adjust height automatically */
+}
+.chart-container2 {
+    width: 100%; /* Make the chart container full width */
+    margin-bottom: 20px;
+    background-color: #f9f9f9; /* Lighter background color */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+    overflow: hidden; /* Hide overflowing content */
+}
+#MyChart {
+    width: 100%; /* Make the chart canvas full width */
+    height: auto; /* Adjust height automatically */
+}

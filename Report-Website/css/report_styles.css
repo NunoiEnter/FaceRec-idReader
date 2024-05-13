@@ -1,0 +1,142 @@
+/* styles.css */
+
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-links {
+    display: flex;
+}
+
+.navbar-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 18px;
+}
+
+.toggle-btn {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #333;
+    padding-top: 60px;
+    transition: all 0.3s ease;
+}
+
+.sidebar ul {
+    list-style-type: none;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    position: relative;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: #555;
+    padding-left: 30px;
+}
+
+.dropdown-container {
+    display: none;
+    background-color: #333; /* Match sidebar background */
+    padding-left: 15px; /* Adjust padding */
+}
+
+.dropdown-container a {
+    color: #fff; /* Match sidebar link color */
+    text-decoration: none;
+    display: block;
+    padding: 10px; /* Adjust padding */
+    transition: all 0.3s ease;
+}
+
+.dropdown-container a:hover {
+    background-color: #555; /* Match sidebar hover color */
+    padding-left: 20px; /* Adjust padding */
+}
+.dropdown-btn {
+    background-color: transparent;
+    border: none;
+    color: #fff; /* Match sidebar link color */
+    font-size: 18px; /* Match sidebar link font size */
+    cursor: pointer;
+    text-decoration: none; /* Remove default link underline */
+    display: block; /* Make the button a block element */
+    width: 100%; /* Take up full width of parent */
+    padding: 15px; /* Adjust padding */
+    transition: all 0.3s ease;
+    text-align: left; /* Align text to the left */
+}
+
+.dropdown-btn:hover {
+    background-color: #555; /* Match sidebar hover color */
+}
+.dropdown-btn::after {
+    content: "\25B6"; /* Unicode for right-pointing triangle */
+    float: right;
+    margin-left: 5px;
+    transform: rotate(0deg); /* Initially rotate the triangle */
+    transition: transform 0.3s ease; /* Smooth transition for rotation */
+}
+
+.active::after {
+    transform: rotate(90deg); /* Rotate triangle when dropdown is active */
+}
+.pagination {
+    margin-top: 20px;
+}
+
+.pagination a {
+    color: #007bff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.pagination a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.pagination a:active {
+    background-color: #0056b3;
+    color: #fff;
+}
