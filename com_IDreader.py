@@ -207,16 +207,15 @@ def read_card_data_and_display_photo():
         gender_var.set(gender_label)
 
         cid = cid_var.get()
-        full_name = enn_var.get().replace("Mr. ", "")
-        # Photo retrieval
+        full_name = enn_var.get().replace("Mr. ","").replace("Mrs. ","").replace("Miss ","")  
         photo_data = b''  
         for apdu in APDU_PHOTO:
             data = getData(connection, apdu['apdu'], req)
             photo_data += bytearray(data[0])
 
         # Save photo to file
-        # with open(os.path.join(selected_directory, f"{cid}_{full_name}.jpg"), "wb") as f:
-        #     f.write(photo_data)
+        with open(os.path.join(selected_directory, f"{cid}_{full_name}2.jpg"), "wb") as f:
+            f.write(photo_data)
 
         # Display photo
         image = Image.open(BytesIO(photo_data))
@@ -552,7 +551,7 @@ def open_camera():
 
         if cv2.waitKey(1) & 0xFF == ord('c'):
             cid = cid_var.get()[:13]
-            full_name = enn_var.get().replace("Mr. ", "")
+            full_name = enn_var.get().replace("Mr. ","").replace("Mrs. ","").replace("Miss ","")  
             file_name = f"{cid}_{full_name}.jpg"  # Include CID in the file name
             image_path = os.path.join(selected_directory, file_name)
 
